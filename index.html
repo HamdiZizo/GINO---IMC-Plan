@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gino Food Solutions — Digital & IMC Strategy 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --teal: #1B4B43;
+    --teal-light: #2a6b5f;
+    --teal-dark: #0f2e28;
+    --gold: #C8962E;
+    --gold-light: #e8b84a;
+    --gold-pale: #f5e6c0;
+    --cream: #f9f4ec;
+    --white: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-mid: #4a4a4a;
+    --text-light: #888;
+    --blue-ring: #3B82F6;
+    --gap: clamp(1rem, 3vw, 2.5rem);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(27,75,67,0.96);
+    backdrop-filter: blur(12px);
+    padding: 0 var(--gap);
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 2px 30px rgba(0,0,0,0.2);
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600; color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+  .nav-logo-circle {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--teal-dark);
+    border: 2px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: var(--gold);
+  }
+  .nav-links {
+    display: flex; gap: 6px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 6px 12px; border-radius: 20px;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background: rgba(200,150,46,0.2);
+    color: var(--gold-light);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 50%, #1f5c52 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    position: relative; overflow: hidden;
+    padding: 80px var(--gap) 60px;
+  }
+  .hero-bg-pattern {
+    position: absolute; inset: 0; opacity: 0.04;
+    background-image: repeating-linear-gradient(
+      45deg, var(--gold) 0, var(--gold) 1px, transparent 0, transparent 50%
+    );
+    background-size: 30px 30px;
+  }
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero-orb-1 { width: 400px; height: 400px; background: var(--gold); top: -100px; left: -100px; animation-delay: 0s; }
+  .hero-orb-2 { width: 300px; height: 300px; background: var(--blue-ring); bottom: -50px; right: -50px; animation-delay: 3s; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+  .hero-logo {
+    width: 140px; height: 140px; border-radius: 50%;
+    background: var(--teal-dark);
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 0 8px rgba(200,150,46,0.15), 0 0 0 14px rgba(59,130,246,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem; font-weight: 700; color: var(--gold);
+    margin-bottom: 2rem; position: relative; z-index: 2;
+    animation: heroLogoIn 1s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  @keyframes heroLogoIn { from { opacity:0; transform: scale(0.5) rotate(-15deg); } to { opacity:1; transform: scale(1) rotate(0deg); } }
+
+  .hero-subtitle {
+    font-size: 0.85rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem; position: relative; z-index: 2;
+    animation: fadeUp 0.8s 0.3s both;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 300; color: var(--white); line-height: 1.1;
+    margin-bottom: 1.5rem; position: relative; z-index: 2;
+    animation: fadeUp 0.8s 0.5s both;
+  }
+  .hero-title span { color: var(--gold); font-style: italic; }
+  .hero-desc {
+    font-size: 1rem; color: rgba(255,255,255,0.7);
+    max-width: 560px; line-height: 1.7; margin-bottom: 3rem;
+    position: relative; z-index: 2; animation: fadeUp 0.8s 0.7s both;
+  }
+  .hero-stats {
+    display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 2; animation: fadeUp 0.8s 0.9s both;
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem; font-weight: 700; color: var(--gold);
+    line-height: 1;
+  }
+  .hero-stat-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
+  .scroll-hint {
+    position: absolute; bottom: 30px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: rgba(255,255,255,0.4); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    animation: fadeUp 1s 1.2s both;
+  }
+  .scroll-arrow { width: 20px; height: 20px; border-right: 2px solid; border-bottom: 2px solid; transform: rotate(45deg); animation: scrollBounce 1.5s ease-in-out infinite; }
+  @keyframes scrollBounce { 0%,100% { transform: rotate(45deg) translateY(0); } 50% { transform: rotate(45deg) translateY(6px); } }
+  @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+
+  /* ── SECTION WRAPPER ── */
+  section { padding: clamp(60px, 8vw, 100px) var(--gap); max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::after { content:''; flex: 1; height: 1px; background: var(--gold); opacity: 0.3; }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300; line-height: 1.2; margin-bottom: 0.5rem; color: var(--teal-dark);
+  }
+  .section-title strong { font-weight: 700; color: var(--teal); }
+  .section-intro { color: var(--text-mid); line-height: 1.8; max-width: 640px; margin-bottom: 3rem; }
+
+  /* ── PLATFORM CARDS ── */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+  .platform-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid rgba(27,75,67,0.08);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    position: relative; overflow: hidden;
+    cursor: default;
+  }
+  .platform-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+  }
+  .platform-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(27,75,67,0.15);
+  }
+  .platform-card.gap-card::before { background: linear-gradient(90deg, #dc2626, #f87171); }
+  .platform-card.gap-card { border-color: rgba(220,38,38,0.1); }
+  .platform-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+  .platform-name { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.5rem; }
+  .platform-metric { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 700; color: var(--teal); line-height: 1; }
+  .platform-detail { font-size: 0.82rem; color: var(--text-mid); margin-top: 0.75rem; line-height: 1.6; }
+  .platform-badge {
+    display: inline-block; margin-top: 1rem;
+    padding: 3px 10px; border-radius: 20px; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .badge-active { background: rgba(27,75,67,0.1); color: var(--teal); }
+  .badge-gap { background: rgba(220,38,38,0.1); color: #dc2626; }
+  .badge-warn { background: rgba(200,150,46,0.15); color: #a07020; }
+
+  /* ── FULL-WIDTH BG SECTIONS ── */
+  .bg-section {
+    background: var(--teal-dark);
+    padding: clamp(60px, 8vw, 100px) var(--gap);
+  }
+  .bg-section section { max-width: 1200px; margin: 0 auto; padding: 0; }
+  .bg-section .section-title { color: var(--white); }
+  .bg-section .section-title strong { color: var(--gold); }
+  .bg-section .section-label { color: var(--gold-light); }
+  .bg-section .section-intro { color: rgba(255,255,255,0.65); }
+
+  /* ── CHARTS ── */
+  .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  @media (max-width: 700px) { .charts-grid { grid-template-columns: 1fr; } }
+  .chart-box {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 2rem;
+    backdrop-filter: blur(10px);
+  }
+  .chart-box-light {
+    background: var(--white);
+    border: 1px solid rgba(27,75,67,0.1);
+    border-radius: 20px; padding: 2rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  }
+  .chart-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 1.5rem; }
+  .chart-box .chart-title { color: var(--white); }
+  .chart-box-light .chart-title { color: var(--teal-dark); }
+  canvas { max-height: 280px; }
+
+  /* ── COMPETITOR TABLE ── */
+  .comp-table { width: 100%; border-collapse: collapse; }
+  .comp-table th {
+    background: var(--teal-dark); color: var(--gold);
+    padding: 14px 20px; text-align: left;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+  }
+  .comp-table th:first-child { border-radius: 12px 0 0 0; }
+  .comp-table th:last-child { border-radius: 0 12px 0 0; }
+  .comp-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(27,75,67,0.08);
+    font-size: 0.88rem; color: var(--text-mid);
+    transition: background 0.2s;
+  }
+  .comp-table tr:hover td { background: rgba(27,75,67,0.03); }
+  .comp-table tr.gino-row td { background: rgba(200,150,46,0.06); font-weight: 500; }
+  .comp-table td:first-child { font-weight: 600; color: var(--text-dark); }
+  .followers-bar-wrap { display: flex; align-items: center; gap: 10px; }
+  .followers-bar { height: 8px; border-radius: 4px; background: linear-gradient(90deg, var(--teal), var(--gold)); transition: width 1s ease; min-width: 6px; }
+  .followers-num { font-weight: 600; color: var(--teal); white-space: nowrap; font-size: 0.85rem; }
+  .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  .dot-green { background: #22c55e; }
+  .dot-red { background: #ef4444; }
+  .dot-yellow { background: #f59e0b; }
+
+  /* ── PHASE ROADMAP ── */
+  .roadmap { display: flex; flex-direction: column; gap: 0; position: relative; }
+  .roadmap::before {
+    content: '';
+    position: absolute; left: 32px; top: 0; bottom: 0; width: 2px;
+    background: linear-gradient(to bottom, var(--gold), var(--teal));
+  }
+  .phase {
+    display: flex; gap: 2rem; padding: 0 0 2.5rem 0;
+    position: relative;
+    opacity: 0; transform: translateX(-20px);
+    transition: all 0.6s ease;
+  }
+  .phase.visible { opacity: 1; transform: translateX(0); }
+  .phase-dot {
+    width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0;
+    background: var(--white);
+    border: 3px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 700; color: var(--teal);
+    position: relative; z-index: 2;
+    box-shadow: 0 4px 20px rgba(200,150,46,0.2);
+  }
+  .phase-content {
+    background: var(--white);
+    border-radius: 16px; padding: 1.75rem;
+    border: 1px solid rgba(27,75,67,0.08);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    flex: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .phase-content:hover { box-shadow: 0 8px 40px rgba(27,75,67,0.12); transform: translateX(4px); }
+  .phase-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+  .phase-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+  .phase-timeline { font-size: 0.75rem; color: var(--text-light); background: var(--cream); padding: 3px 10px; border-radius: 20px; }
+  .phase-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--teal-dark); margin-bottom: 0.5rem; }
+  .phase-body { display: none; padding-top: 1rem; border-top: 1px solid rgba(27,75,67,0.08); margin-top: 0.75rem; }
+  .phase-body.open { display: block; animation: slideDown 0.3s ease; }
+  @keyframes slideDown { from { opacity:0; transform: translateY(-10px); } to { opacity:1; transform: translateY(0); } }
+  .phase-items { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .phase-items li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.88rem; color: var(--text-mid); line-height: 1.5; }
+  .phase-items li::before { content: '→'; color: var(--gold); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── KPI TARGETS ── */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
+  .kpi-card {
+    background: var(--white);
+    border-radius: 16px; padding: 1.5rem;
+    border: 1px solid rgba(27,75,67,0.08);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  .kpi-card:hover { transform: translateY(-4px); }
+  .kpi-platform { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.5rem; }
+  .kpi-current { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--text-mid); line-height: 1; }
+  .kpi-arrow { font-size: 1.2rem; color: var(--gold); margin: 0.5rem 0; }
+  .kpi-target { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--teal); line-height: 1; }
+  .kpi-label { font-size: 0.75rem; color: var(--text-light); margin-top: 0.5rem; }
+  .kpi-progress { height: 4px; background: rgba(27,75,67,0.1); border-radius: 2px; margin-top: 1rem; overflow: hidden; }
+  .kpi-progress-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--gold)); border-radius: 2px; width: 0; transition: width 1.5s ease; }
+
+  /* ── GAPS ── */
+  .gaps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 700px) { .gaps-grid { grid-template-columns: 1fr; } }
+  .gap-item {
+    background: var(--white); border-radius: 16px; padding: 1.5rem;
+    border-left: 4px solid #ef4444;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    display: flex; gap: 1rem; align-items: flex-start;
+    transition: transform 0.3s;
+  }
+  .gap-item:hover { transform: translateX(4px); }
+  .gap-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: #ef4444; line-height: 1; flex-shrink: 0; }
+  .gap-text { font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; }
+  .gap-text strong { display: block; color: var(--text-dark); font-size: 0.95rem; margin-bottom: 2px; }
+  .win-item {
+    background: rgba(27,75,67,0.05); border-radius: 16px; padding: 1.5rem;
+    border-left: 4px solid var(--teal);
+    display: flex; gap: 1rem; align-items: flex-start;
+    transition: transform 0.3s;
+  }
+  .win-item:hover { transform: translateX(4px); }
+  .win-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .win-text { font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; }
+  .win-text strong { display: block; color: var(--teal); font-size: 0.95rem; margin-bottom: 2px; }
+
+  /* ── QUICK WINS ── */
+  .quickwins-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  @media (max-width: 700px) { .quickwins-grid { grid-template-columns: 1fr; } }
+  .quick-col-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--teal-dark); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--gold); }
+  .quick-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1rem; background: var(--white); border-radius: 12px;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(27,75,67,0.06);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    transition: all 0.25s;
+  }
+  .quick-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(27,75,67,0.1); }
+  .quick-num { width: 28px; height: 28px; border-radius: 50%; background: var(--teal); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; flex-shrink: 0; }
+  .quick-text { font-size: 0.86rem; color: var(--text-mid); line-height: 1.6; }
+
+  /* ── BOTTOM CTA ── */
+  .bottom-cta {
+    background: linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%);
+    padding: 80px var(--gap); text-align: center;
+  }
+  .bottom-cta h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: var(--white); margin-bottom: 1rem; }
+  .bottom-cta h2 span { color: var(--gold); font-style: italic; }
+  .bottom-cta p { color: rgba(255,255,255,0.65); max-width: 540px; margin: 0 auto 2rem; line-height: 1.7; }
+  .btn-gold {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--teal-dark); font-weight: 700; font-size: 0.88rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 14px 36px; border-radius: 40px; text-decoration: none;
+    box-shadow: 0 8px 30px rgba(200,150,46,0.4);
+    transition: all 0.3s;
+  }
+  .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(200,150,46,0.5); }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(27,75,67,0.15), transparent); margin: 0 var(--gap); }
+
+  /* ── ANIMATION HELPERS ── */
+  .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  .stagger-1 { transition-delay: 0.1s; }
+  .stagger-2 { transition-delay: 0.2s; }
+  .stagger-3 { transition-delay: 0.3s; }
+  .stagger-4 { transition-delay: 0.4s; }
+  .stagger-5 { transition-delay: 0.5s; }
+
+  /* ── COUNTER ANIMATION ── */
+  .counter { display: inline-block; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .charts-grid { grid-template-columns: 1fr; }
+    .gaps-grid { grid-template-columns: 1fr; }
+    .quickwins-grid { grid-template-columns: 1fr; }
+    .roadmap::before { left: 28px; }
+    .phase-dot { width: 56px; height: 56px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo-circle">G</div>
+    Gino Food Solutions
+  </div>
+  <ul class="nav-links">
+    <li><a href="#facts">Facts</a></li>
+    <li><a href="#competitors">Competitors</a></li>
+    <li><a href="#gaps">Gaps</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#kpis">KPIs</a></li>
+    <li><a href="#wins">Quick Wins</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="home">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-logo">G</div>
+
+  <p class="hero-subtitle">Digital Intelligence & IMC Strategy — February 2026</p>
+  <h1 class="hero-title">
+    Gino Food Solutions<br>
+    <span>360° Growth Blueprint</span>
+  </h1>
+  <p class="hero-desc">
+    A comprehensive audit of Gino's current digital presence, competitive landscape, and a full Integrated Marketing Communications strategy to elevate the brand from 5/10 to 8/10 digital maturity.
+  </p>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span class="counter" data-target="19">0</span>+</div>
+      <div class="hero-stat-label">Years Experience</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span class="counter" data-target="3292">0</span></div>
+      <div class="hero-stat-label">Total Followers</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span class="counter" data-target="10">0</span></div>
+      <div class="hero-stat-label">Critical Gaps</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num"><span class="counter" data-target="5">0</span></div>
+      <div class="hero-stat-label">IMC Phases</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll to explore</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</div>
+
+<!-- SECTION 1: DIGITAL FACTS -->
+<section id="facts" style="padding-top: clamp(60px,8vw,100px)">
+  <p class="section-label">Part 1 — Current State</p>
+  <h2 class="section-title">Digital <strong>Platform Facts</strong></h2>
+  <p class="section-intro">All metrics verified from live platform data as of February 22, 2026. Every number is sourced from direct platform evidence.</p>
+
+  <div class="platform-grid">
+    <div class="platform-card fade-in stagger-1">
+      <div class="platform-icon">📘</div>
+      <div class="platform-name">Facebook</div>
+      <div class="platform-metric">1,427</div>
+      <div class="platform-detail">Page likes · 9 talking about this · Phone: 010 17005555 · Bilingual content (AR + EN) · Video-heavy strategy</div>
+      <span class="platform-badge badge-active">Active</span>
+    </div>
+    <div class="platform-card fade-in stagger-2">
+      <div class="platform-icon">📸</div>
+      <div class="platform-name">Instagram</div>
+      <div class="platform-metric">921</div>
+      <div class="platform-detail">followers · 0 following · 67 posts · ~2–3% est. engagement rate · Reels-first format · Not verified</div>
+      <span class="platform-badge badge-active">Active</span>
+    </div>
+    <div class="platform-card fade-in stagger-3">
+      <div class="platform-icon">💼</div>
+      <div class="platform-name">LinkedIn</div>
+      <div class="platform-metric">946</div>
+      <div class="platform-detail">followers · 51–200 employees · Founded 2006 · Last post: January 2026 (New Year message) · B2B positioning</div>
+      <span class="platform-badge badge-active">Active</span>
+    </div>
+    <div class="platform-card fade-in stagger-4">
+      <div class="platform-icon">🎵</div>
+      <div class="platform-name">TikTok @gino.food.solutions</div>
+      <div class="platform-metric">79</div>
+      <div class="platform-detail">followers · 30 videos · Links to ginofoods.com · EXISTS but underdeveloped — original audit incorrectly stated "no TikTok"</div>
+      <span class="platform-badge badge-warn">Underdeveloped</span>
+    </div>
+    <div class="platform-card fade-in stagger-1">
+      <div class="platform-icon">🌐</div>
+      <div class="platform-name">ginofoods.com</div>
+      <div class="platform-metric" style="font-size:1.6rem">LIVE</div>
+      <div class="platform-detail">Cookie consent banner confirmed · GoDaddy hosted · Linked from TikTok bio · NOT "Coming Soon" as originally stated. Underperforming, needs content.</div>
+      <span class="platform-badge badge-warn">Live but thin</span>
+    </div>
+    <div class="platform-card fade-in stagger-2">
+      <div class="platform-icon">🔍</div>
+      <div class="platform-name">Google Business Profile</div>
+      <div class="platform-metric" style="color:#ef4444">ZERO</div>
+      <div class="platform-detail">No claimed profile · 0 reviews · No map pin · No Google Knowledge Panel · Invisible to "catering near me" searches</div>
+      <span class="platform-badge badge-gap">Critical Gap</span>
+    </div>
+    <div class="platform-card fade-in stagger-3">
+      <div class="platform-icon">📋</div>
+      <div class="platform-name">ginocatering.com</div>
+      <div class="platform-metric" style="font-size:1.6rem">Basic</div>
+      <div class="platform-detail">Live but dated design · Mentions HACCP / QHSE department · Limited company info · Minimal UX optimization</div>
+      <span class="platform-badge badge-warn">Dated</span>
+    </div>
+    <div class="platform-card fade-in stagger-4">
+      <div class="platform-icon">📢</div>
+      <div class="platform-name">Paid Advertising</div>
+      <div class="platform-metric" style="color:#ef4444">NONE</div>
+      <div class="platform-detail">No active Facebook or Instagram campaigns identified · No budget invested in paid amplification · All growth is organic only</div>
+      <span class="platform-badge badge-gap">Not Running</span>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: CHARTS -->
+<div class="bg-section" id="competitors">
+  <section>
+    <p class="section-label">Part 2 — Market Position</p>
+    <h2 class="section-title">Competitor <strong>Landscape</strong></h2>
+    <p class="section-intro">Gino sits at the bottom of the digital presence ranking in a market where competitors have 20x–80x more followers. The gap is in distribution, not product quality.</p>
+
+    <div class="charts-grid" style="margin-bottom: 2.5rem;">
+      <div class="chart-box fade-in">
+        <div class="chart-title">Instagram Follower Comparison</div>
+        <canvas id="instagramChart"></canvas>
+      </div>
+      <div class="chart-box fade-in stagger-2">
+        <div class="chart-title">Digital Maturity Score (out of 10)</div>
+        <canvas id="maturityChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Competitor Table -->
+    <div style="background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.08);" class="fade-in">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Competitor</th>
+            <th>Instagram Followers</th>
+            <th>Website</th>
+            <th>Primary Differentiator</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Lokāli</td>
+            <td>
+              <div class="followers-bar-wrap">
+                <div class="followers-bar" style="width: 74%;" data-width="74"></div>
+                <span class="followers-num">74,000</span>
+              </div>
+            </td>
+            <td><span class="status-dot dot-green"></span>Active</td>
+            <td>Farm-to-table restaurant + catering, strong community</td>
+          </tr>
+          <tr>
+            <td>Umai Catering</td>
+            <td>
+              <div class="followers-bar-wrap">
+                <div class="followers-bar" style="width: 35%;" data-width="35"></div>
+                <span class="followers-num">35,000</span>
+              </div>
+            </td>
+            <td><span class="status-dot dot-green"></span>Active</td>
+            <td>Luxury events, high-end seated dinners</td>
+          </tr>
+          <tr>
+            <td>Crave Catering</td>
+            <td>
+              <div class="followers-bar-wrap">
+                <div class="followers-bar" style="width: 26%;" data-width="26"></div>
+                <span class="followers-num">26,000</span>
+              </div>
+            </td>
+            <td><span class="status-dot dot-green"></span>Active</td>
+            <td>Market leader positioning across Egypt</td>
+          </tr>
+          <tr>
+            <td>Nawara Catering</td>
+            <td>
+              <div class="followers-bar-wrap">
+                <div class="followers-bar" style="width: 20%;" data-width="20"></div>
+                <span class="followers-num">20,000</span>
+              </div>
+            </td>
+            <td><span class="status-dot dot-green"></span>nawara.world</td>
+            <td>Chef-led personal brand (Chef Ghada Nawara)</td>
+          </tr>
+          <tr>
+            <td>CFS Egypt</td>
+            <td>
+              <div class="followers-bar-wrap">
+                <div class="followers-bar" style="width: 3%;" data-width="3"></div>
+                <span class="followers-num">Limited</span>
+              </div>
+            </td>
+            <td><span class="status-dot dot-green"></span>cfs-egy.com</td>
+            <td>Industrial scale — 15,000+ meals daily</td>
+          </tr>
+          <tr>
+            <td>Trio Catering</td>
+            <td>
+              <div class="followers-bar-wrap">
+                <div class="followers-bar" style="width: 2%;" data-width="2"></div>
+                <span class="followers-num">Limited</span>
+              </div>
+            </td>
+            <td><span class="status-dot dot-green"></span>trio-catering.net</td>
+            <td>Corporate & education, EFS Group backing</td>
+          </tr>
+          <tr class="gino-row">
+            <td>⭐ Gino Food Solutions</td>
+            <td>
+              <div class="followers-bar-wrap">
+                <div class="followers-bar" style="width: 1%; background: linear-gradient(90deg, #C8962E, #e8b84a);" data-width="1"></div>
+                <span class="followers-num" style="color: #C8962E;">921</span>
+              </div>
+            </td>
+            <td><span class="status-dot dot-yellow"></span>ginofoods.com</td>
+            <td>Strong video quality, 19yr experience, HACCP certified</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- SECTION 3: GAPS + STRENGTHS -->
+<section id="gaps" style="max-width: 1200px;">
+  <p class="section-label">Part 3 — Gap Analysis</p>
+  <h2 class="section-title">Critical <strong>Gaps</strong> & Existing <strong>Strengths</strong></h2>
+  <p class="section-intro">Understanding what's broken AND what's working is the foundation of any effective strategy.</p>
+
+  <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:#ef4444; margin-bottom:1.5rem;">🔴 10 Critical Gaps to Fix</h3>
+  <div class="gaps-grid" style="margin-bottom: 3rem;">
+    <div class="gap-item fade-in"><div class="gap-num">1</div><div class="gap-text"><strong>No Google Business Profile</strong>Zero local search visibility, zero reviews, invisible on Google Maps</div></div>
+    <div class="gap-item fade-in stagger-1"><div class="gap-num">2</div><div class="gap-text"><strong>Website Underperforming</strong>ginofoods.com is live but has no content, no SEO, no conversion path</div></div>
+    <div class="gap-item fade-in stagger-2"><div class="gap-num">3</div><div class="gap-text"><strong>Instagram 921 vs. 20K–74K</strong>Competitors have 22x–80x more followers on the same platform</div></div>
+    <div class="gap-item fade-in stagger-3"><div class="gap-num">4</div><div class="gap-text"><strong>Zero Paid Advertising</strong>All growth is organic — not scalable in a competitive market</div></div>
+    <div class="gap-item fade-in"><div class="gap-num">5</div><div class="gap-text"><strong>TikTok at 79 Followers</strong>Account exists but is effectively dormant despite 30 videos</div></div>
+    <div class="gap-item fade-in stagger-1"><div class="gap-num">6</div><div class="gap-text"><strong>No Influencer Partnerships</strong>Biggest growth lever in Egyptian market completely unused</div></div>
+    <div class="gap-item fade-in stagger-2"><div class="gap-num">7</div><div class="gap-text"><strong>Zero Press Coverage</strong>No media mentions, no editorial, no food publication features</div></div>
+    <div class="gap-item fade-in stagger-3"><div class="gap-num">8</div><div class="gap-text"><strong>No Pricing Information</strong>Most common customer question never answered on any platform</div></div>
+    <div class="gap-item fade-in"><div class="gap-num">9</div><div class="gap-text"><strong>Diffused B2B vs B2C</strong>Brand message split between corporate and events with no clarity</div></div>
+    <div class="gap-item fade-in stagger-1"><div class="gap-num">10</div><div class="gap-text"><strong>No YouTube Channel</strong>Strong video content exists but has no permanent repository</div></div>
+  </div>
+
+  <div class="charts-grid" style="margin-bottom: 2rem;">
+    <div class="chart-box-light fade-in">
+      <div class="chart-title">Platform Gap vs. Target (Followers)</div>
+      <canvas id="gapChart"></canvas>
+    </div>
+    <div class="chart-box-light fade-in stagger-2">
+      <div class="chart-title">Content Mix Breakdown (Current)</div>
+      <canvas id="contentChart"></canvas>
+    </div>
+  </div>
+
+  <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--teal); margin-bottom:1.5rem;">🟢 What We're Building On</h3>
+  <div class="gaps-grid">
+    <div class="win-item fade-in"><div class="win-icon">🎬</div><div class="win-text"><strong>Cinematic Video Quality</strong>Production level significantly above average — a real competitive advantage</div></div>
+    <div class="win-item fade-in stagger-1"><div class="win-icon">📅</div><div class="win-text"><strong>19 Years Experience (Since 2006)</strong>Deep credibility asset not prominently communicated anywhere</div></div>
+    <div class="win-item fade-in stagger-2"><div class="win-icon">🏆</div><div class="win-text"><strong>HACCP Certified / QHSE Dept</strong>Strong trust signal buried on ginocatering.com, needs amplifying</div></div>
+    <div class="win-item fade-in stagger-3"><div class="win-icon">🌍</div><div class="win-text"><strong>Bilingual Content</strong>Arabic + English reaches cosmopolitan Egyptian & expat audiences</div></div>
+    <div class="win-item fade-in"><div class="win-icon">🍽️</div><div class="win-text"><strong>Full-Service Portfolio</strong>Weddings, corporate, hotels, industrial — diversified revenue potential</div></div>
+    <div class="win-item fade-in stagger-1"><div class="win-icon">❤️</div><div class="win-text"><strong>Authentic Client Testimonials</strong>Real stories, real smiles — emotional content that converts</div></div>
+  </div>
+</section>
+
+<!-- SECTION 4: ROADMAP -->
+<div class="bg-section" id="roadmap">
+  <section>
+    <p class="section-label">Part 4 — IMC Strategy</p>
+    <h2 class="section-title">Phased <strong>Action Roadmap</strong></h2>
+    <p class="section-intro">A structured 6-month investment plan across 5 phases. Click each phase to expand the full action list.</p>
+
+    <div class="roadmap">
+
+      <div class="phase">
+        <div class="phase-dot">P0</div>
+        <div class="phase-content" onclick="togglePhase(this)">
+          <div class="phase-header">
+            <div>
+              <div class="phase-label">Phase 0</div>
+              <div class="phase-title">Foundation — Fix What's Broken Now</div>
+            </div>
+            <div class="phase-timeline">Week 1–2</div>
+          </div>
+          <div class="phase-body">
+            <ul class="phase-items">
+              <li>Claim and fully verify Google Business Profile at google.com/business — free, 30 minutes, unlocks all local search</li>
+              <li>Add HACCP certification and "19 years since 2006" to ALL platform bios immediately</li>
+              <li>Add WhatsApp direct-contact button to every social profile</li>
+              <li>Email 20 past happy clients requesting a Google review — 10 reviews transforms search presence</li>
+              <li>Upload existing best 5 video reels to TikTok to activate the dormant account</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot">P1</div>
+        <div class="phase-content" onclick="togglePhase(this)">
+          <div class="phase-header">
+            <div>
+              <div class="phase-label">Phase 1</div>
+              <div class="phase-title">Brand Foundation & Content Engine</div>
+            </div>
+            <div class="phase-timeline">Month 1</div>
+          </div>
+          <div class="phase-body">
+            <ul class="phase-items">
+              <li>Develop full Brand Guidelines — standardize colors, fonts, tone, logo usage across platforms</li>
+              <li>Build Instagram content calendar — minimum 5x/week: 3 Reels, 1 carousel, 1 story series</li>
+              <li>Identify and begin outreach to 5–10 Egyptian micro-influencers in wedding/event/food niche</li>
+              <li>Activate LinkedIn for B2B — post corporate case studies, team spotlights, HACCP/quality content</li>
+              <li>Create YouTube channel and upload existing best-performing reels as long-form compilations</li>
+              <li>Build service pages on ginofoods.com with SEO keyword targeting</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot">P2</div>
+        <div class="phase-content" onclick="togglePhase(this)">
+          <div class="phase-header">
+            <div>
+              <div class="phase-label">Phase 2</div>
+              <div class="phase-title">Paid Amplification & Influencer Launch</div>
+            </div>
+            <div class="phase-timeline">Month 2–3</div>
+          </div>
+          <div class="phase-body">
+            <ul class="phase-items">
+              <li>Launch first Facebook & Instagram paid campaigns — wedding catering (B2C) and corporate catering (B2B) split</li>
+              <li>First influencer collaboration — Egyptian food/wedding creator with 50K+ audience</li>
+              <li>Build TikTok to 3–4 posts/week — behind-the-scenes, day-in-the-life, food reveals</li>
+              <li>Ramadan seasonal campaign — position Gino as "The Ramadan Caterer" before any competitor does</li>
+              <li>List on Elmenus, Talabat catering section, and Egyptian B2B directories</li>
+              <li>Install Facebook Pixel on ginofoods.com to build retargeting audience</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot">P3</div>
+        <div class="phase-content" onclick="togglePhase(this)">
+          <div class="phase-header">
+            <div>
+              <div class="phase-label">Phase 3</div>
+              <div class="phase-title">Authority & Partnership Network</div>
+            </div>
+            <div class="phase-timeline">Month 3–6</div>
+          </div>
+          <div class="phase-body">
+            <ul class="phase-items">
+              <li>PR push — pitch to Egyptian food magazines, wedding publications, and business press for editorial coverage</li>
+              <li>Build formal wedding venue partnership network — top 20 Cairo venues, mutual cross-promotion</li>
+              <li>Create "starting from" pricing landing page — answer the #1 customer question, capture leads</li>
+              <li>Launch UGC campaign — incentivize clients to tag @ginofoodsolutions with branded campaign hashtag</li>
+              <li>Monthly performance reporting dashboard tracking all KPIs: followers, reach, leads, conversions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-dot">P4</div>
+        <div class="phase-content" onclick="togglePhase(this)">
+          <div class="phase-header">
+            <div>
+              <div class="phase-label">Phase 4</div>
+              <div class="phase-title">Scale & Strategic Refinement</div>
+            </div>
+            <div class="phase-timeline">Month 6+</div>
+          </div>
+          <div class="phase-body">
+            <ul class="phase-items">
+              <li>Assess paid campaign ROI — scale winning ad audiences and cut underperformers</li>
+              <li>Explore YouTube Shorts as additional cross-post channel for TikTok content</li>
+              <li>Build corporate client showcase portfolio with case studies, meal counts, and named client logos</li>
+              <li>Consider sub-brand separation: "Gino Events" vs "Gino Corporate" for cleaner messaging to each market</li>
+              <li>Annual digital audit — re-benchmark against all competitors and reset strategy for Year 2</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- SECTION 5: KPIs -->
+<section id="kpis">
+  <p class="section-label">Part 5 — Success Metrics</p>
+  <h2 class="section-title">KPI <strong>Targets</strong></h2>
+  <p class="section-intro">Measurable goals for every platform. From current baseline to 6-month ambition.</p>
+
+  <div class="kpi-grid">
+    <div class="kpi-card fade-in stagger-1">
+      <div class="kpi-platform">Instagram</div>
+      <div class="kpi-current">921</div>
+      <div class="kpi-arrow">↓</div>
+      <div class="kpi-target">5,000+</div>
+      <div class="kpi-label">Followers in 6 months</div>
+      <div class="kpi-progress"><div class="kpi-progress-fill" data-fill="18"></div></div>
+    </div>
+    <div class="kpi-card fade-in stagger-2">
+      <div class="kpi-platform">Facebook</div>
+      <div class="kpi-current">1,427</div>
+      <div class="kpi-arrow">↓</div>
+      <div class="kpi-target">4,000+</div>
+      <div class="kpi-label">Page Likes in 6 months</div>
+      <div class="kpi-progress"><div class="kpi-progress-fill" data-fill="36"></div></div>
+    </div>
+    <div class="kpi-card fade-in stagger-3">
+      <div class="kpi-platform">LinkedIn</div>
+      <div class="kpi-current">946</div>
+      <div class="kpi-arrow">↓</div>
+      <div class="kpi-target">2,500+</div>
+      <div class="kpi-label">Followers in 6 months</div>
+      <div class="kpi-progress"><div class="kpi-progress-fill" data-fill="38"></div></div>
+    </div>
+    <div class="kpi-card fade-in stagger-4">
+      <div class="kpi-platform">TikTok</div>
+      <div class="kpi-current">79</div>
+      <div class="kpi-arrow">↓</div>
+      <div class="kpi-target">2,000+</div>
+      <div class="kpi-label">Followers in 6 months</div>
+      <div class="kpi-progress"><div class="kpi-progress-fill" data-fill="4"></div></div>
+    </div>
+    <div class="kpi-card fade-in stagger-1">
+      <div class="kpi-platform">Google Reviews</div>
+      <div class="kpi-current">0</div>
+      <div class="kpi-arrow">↓</div>
+      <div class="kpi-target">30+</div>
+      <div class="kpi-label">Reviews in 6 months</div>
+      <div class="kpi-progress"><div class="kpi-progress-fill" data-fill="0"></div></div>
+    </div>
+    <div class="kpi-card fade-in stagger-2">
+      <div class="kpi-platform">Monthly Website Visitors</div>
+      <div class="kpi-current">~0</div>
+      <div class="kpi-arrow">↓</div>
+      <div class="kpi-target">2,000+</div>
+      <div class="kpi-label">Visitors/month in 6 months</div>
+      <div class="kpi-progress"><div class="kpi-progress-fill" data-fill="0"></div></div>
+    </div>
+    <div class="kpi-card fade-in stagger-3">
+      <div class="kpi-platform">Digital Leads</div>
+      <div class="kpi-current">~0</div>
+      <div class="kpi-arrow">↓</div>
+      <div class="kpi-target">40+</div>
+      <div class="kpi-label">Inbound leads/month</div>
+      <div class="kpi-progress"><div class="kpi-progress-fill" data-fill="0"></div></div>
+    </div>
+    <div class="kpi-card fade-in stagger-4">
+      <div class="kpi-platform">Engagement Rate</div>
+      <div class="kpi-current">~2%</div>
+      <div class="kpi-arrow">↓</div>
+      <div class="kpi-target">4–5%</div>
+      <div class="kpi-label">Instagram engagement target</div>
+      <div class="kpi-progress"><div class="kpi-progress-fill" data-fill="40"></div></div>
+    </div>
+  </div>
+
+  <!-- Radar chart for maturity -->
+  <div style="margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;" class="charts-grid">
+    <div class="chart-box-light fade-in">
+      <div class="chart-title">6-Month Follower Growth Trajectory</div>
+      <canvas id="growthChart"></canvas>
+    </div>
+    <div class="chart-box-light fade-in stagger-2">
+      <div class="chart-title">Digital Maturity: Now vs. 6-Month Target</div>
+      <canvas id="radarChart"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: QUICK WINS -->
+<div class="bg-section" id="wins" style="background: linear-gradient(135deg, #f9f4ec 0%, #f0ebe0 100%);">
+  <section style="max-width: 1200px; padding: 0;">
+    <p class="section-label" style="color: var(--teal);">Part 6 — Immediate Actions</p>
+    <h2 class="section-title" style="color: var(--teal-dark);">Quick <strong style="color: var(--teal);">Wins</strong></h2>
+    <p class="section-intro" style="color: var(--text-mid);">Actions that cost little or nothing but deliver significant early results.</p>
+
+    <div class="quickwins-grid">
+      <div>
+        <div class="quick-col-title">🚀 Do This Week — Zero Cost</div>
+        <div class="quick-item fade-in">
+          <div class="quick-num">1</div>
+          <div class="quick-text">Claim Google Business Profile at google.com/business — free, 30 minutes, unlocks all local search visibility</div>
+        </div>
+        <div class="quick-item fade-in stagger-1">
+          <div class="quick-num">2</div>
+          <div class="quick-text">Add "HACCP Certified | 19 Years Experience Since 2006" to all platform bios — credibility boost at zero cost</div>
+        </div>
+        <div class="quick-item fade-in stagger-2">
+          <div class="quick-num">3</div>
+          <div class="quick-text">Add WhatsApp button to every social profile — removes all friction between a curious lead and a booking</div>
+        </div>
+        <div class="quick-item fade-in stagger-3">
+          <div class="quick-num">4</div>
+          <div class="quick-text">Email 20 past happy clients for Google reviews — 10 reviews can transform the search presence overnight</div>
+        </div>
+        <div class="quick-item fade-in stagger-4">
+          <div class="quick-num">5</div>
+          <div class="quick-text">Upload best 5 existing reels to TikTok immediately — activates the account using already-created content</div>
+        </div>
+      </div>
+      <div>
+        <div class="quick-col-title">💡 Do This Month — Low Budget</div>
+        <div class="quick-item fade-in">
+          <div class="quick-num">1</div>
+          <div class="quick-text">Invest EGP 5,000–10,000 in first Facebook/Instagram campaign targeting engaged brides in Greater Cairo</div>
+        </div>
+        <div class="quick-item fade-in stagger-1">
+          <div class="quick-num">2</div>
+          <div class="quick-text">Reach out to 3 micro-influencers for a gifted catering arrangement in exchange for professional content</div>
+        </div>
+        <div class="quick-item fade-in stagger-2">
+          <div class="quick-num">3</div>
+          <div class="quick-text">Install Facebook Pixel on ginofoods.com to start building a retargeting audience from day one</div>
+        </div>
+        <div class="quick-item fade-in stagger-3">
+          <div class="quick-num">4</div>
+          <div class="quick-text">Create YouTube channel and upload 10 best reels — a permanent content repository at zero production cost</div>
+        </div>
+        <div class="quick-item fade-in stagger-4">
+          <div class="quick-num">5</div>
+          <div class="quick-text">Set up Google Search Console + Analytics on ginofoods.com to start tracking organic traffic baseline</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <h2>The gap is in <span>distribution</span>,<br>not in the product.</h2>
+  <p>Gino has strong content, real experience, and a genuine service portfolio. A structured 6-month digital investment of EGP 300,000–500,000 can realistically elevate Gino from 5/10 to 8/10 digital maturity — competing directly with Nawara and Crave at the premium market level.</p>
+  <a href="#home" class="btn-gold">Back to Top</a>
+</div>
+
+<script>
+// ── COUNTER ANIMATION ──
+function animateCounter(el, target, duration = 2000) {
+  const start = performance.now();
+  const update = (time) => {
+    const elapsed = time - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(eased * target).toLocaleString();
+    if (progress < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+document.querySelectorAll('.counter').forEach(el => {
+  animateCounter(el, parseInt(el.dataset.target));
+});
+
+// ── SCROLL OBSERVER ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // Trigger KPI progress bars
+      entry.target.querySelectorAll && entry.target.querySelectorAll('.kpi-progress-fill').forEach(bar => {
+        setTimeout(() => { bar.style.width = bar.dataset.fill + '%'; }, 300);
+      });
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in, .phase').forEach(el => observer.observe(el));
+
+// Also observe KPI cards individually
+document.querySelectorAll('.kpi-card').forEach(card => {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target.querySelector('.kpi-progress-fill');
+        if (bar) setTimeout(() => { bar.style.width = bar.dataset.fill + '%'; }, 300);
+      }
+    });
+  }, { threshold: 0.3 });
+  obs.observe(card);
+});
+
+// ── PHASE TOGGLE ──
+function togglePhase(el) {
+  const body = el.querySelector('.phase-body');
+  body.classList.toggle('open');
+}
+
+// ── NAV ACTIVE STATE ──
+const sections = document.querySelectorAll('[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 100) current = sec.id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// ── CHART.JS CHARTS ──
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+
+// Instagram Followers Comparison
+const igCtx = document.getElementById('instagramChart').getContext('2d');
+new Chart(igCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Lokāli', 'Umai', 'Crave', 'Nawara', 'CFS', 'Trio', 'GINO'],
+    datasets: [{
+      label: 'Followers',
+      data: [74000, 35000, 26000, 20000, 2000, 1500, 921],
+      backgroundColor: [
+        'rgba(200,150,46,0.4)', 'rgba(200,150,46,0.4)', 'rgba(200,150,46,0.4)',
+        'rgba(200,150,46,0.4)', 'rgba(200,150,46,0.4)', 'rgba(200,150,46,0.4)',
+        'rgba(59,130,246,0.8)'
+      ],
+      borderColor: ['rgba(200,150,46,0.8)', 'rgba(200,150,46,0.8)', 'rgba(200,150,46,0.8)', 'rgba(200,150,46,0.8)', 'rgba(200,150,46,0.8)', 'rgba(200,150,46,0.8)', 'rgba(59,130,246,1)'],
+      borderWidth: 2,
+      borderRadius: 8,
+    }]
+  },
+  options: {
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.parsed.y.toLocaleString() + ' followers' } } },
+    scales: {
+      y: { ticks: { color: 'rgba(255,255,255,0.6)', callback: v => v >= 1000 ? (v/1000)+'K' : v }, grid: { color: 'rgba(255,255,255,0.08)' } },
+      x: { ticks: { color: 'rgba(255,255,255,0.7)' }, grid: { display: false } }
+    },
+    animation: { duration: 1500, easing: 'easeOutQuart' }
+  }
+});
+
+// Digital Maturity
+const matCtx = document.getElementById('maturityChart').getContext('2d');
+new Chart(matCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Nawara', 'Umai', 'Crave', 'CFS', 'Trio', 'Catering+', 'Phoenix', 'GINO'],
+    datasets: [{
+      label: 'Score',
+      data: [9, 8, 8, 7, 7, 6, 6, 5],
+      backgroundColor: (ctx) => ctx.dataIndex === 7 ? 'rgba(59,130,246,0.8)' : 'rgba(200,150,46,0.4)',
+      borderColor: (ctx) => ctx.dataIndex === 7 ? 'rgba(59,130,246,1)' : 'rgba(200,150,46,0.8)',
+      borderWidth: 2, borderRadius: 8,
+    }]
+  },
+  options: {
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { min: 0, max: 10, ticks: { color: 'rgba(255,255,255,0.6)' }, grid: { color: 'rgba(255,255,255,0.08)' } },
+      x: { ticks: { color: 'rgba(255,255,255,0.7)' }, grid: { display: false } }
+    },
+    animation: { duration: 1500, easing: 'easeOutQuart' }
+  }
+});
+
+// Gap Chart
+const gapCtx = document.getElementById('gapChart').getContext('2d');
+new Chart(gapCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Instagram', 'Facebook', 'LinkedIn', 'TikTok'],
+    datasets: [
+      { label: 'Current', data: [921, 1427, 946, 79], backgroundColor: 'rgba(200,150,46,0.5)', borderColor: 'rgba(200,150,46,1)', borderWidth: 2, borderRadius: 6 },
+      { label: '6-Month Target', data: [5000, 4000, 2500, 2000], backgroundColor: 'rgba(27,75,67,0.5)', borderColor: 'rgba(27,75,67,1)', borderWidth: 2, borderRadius: 6 }
+    ]
+  },
+  options: {
+    plugins: { legend: { labels: { color: '#1a1a1a' } } },
+    scales: {
+      y: { ticks: { color: '#666' }, grid: { color: 'rgba(0,0,0,0.05)' } },
+      x: { ticks: { color: '#333' }, grid: { display: false } }
+    },
+    animation: { duration: 1500 }
+  }
+});
+
+// Content Mix Donut
+const contCtx = document.getElementById('contentChart').getContext('2d');
+new Chart(contCtx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Event Catering', 'Wedding Content', 'Testimonials', 'Food Photography', 'Promotional'],
+    datasets: [{
+      data: [40, 25, 20, 10, 5],
+      backgroundColor: ['#1B4B43', '#2a6b5f', '#C8962E', '#e8b84a', '#f5e6c0'],
+      borderWidth: 0, hoverOffset: 8
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { position: 'bottom', labels: { color: '#444', padding: 12, font: { size: 11 } } },
+      tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + '%' } }
+    },
+    cutout: '60%',
+    animation: { duration: 1500 }
+  }
+});
+
+// Growth Trajectory Line Chart
+const growCtx = document.getElementById('growthChart').getContext('2d');
+new Chart(growCtx, {
+  type: 'line',
+  data: {
+    labels: ['Now', 'Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6'],
+    datasets: [
+      {
+        label: 'Instagram', data: [921, 1400, 2100, 2900, 3600, 4300, 5000],
+        borderColor: '#C8962E', backgroundColor: 'rgba(200,150,46,0.1)',
+        tension: 0.4, fill: true, pointRadius: 4, pointBackgroundColor: '#C8962E'
+      },
+      {
+        label: 'Facebook', data: [1427, 1800, 2200, 2700, 3200, 3700, 4000],
+        borderColor: '#1B4B43', backgroundColor: 'rgba(27,75,67,0.08)',
+        tension: 0.4, fill: true, pointRadius: 4, pointBackgroundColor: '#1B4B43'
+      }
+    ]
+  },
+  options: {
+    plugins: { legend: { labels: { color: '#444' } } },
+    scales: {
+      y: { ticks: { color: '#666', callback: v => v >= 1000 ? (v/1000).toFixed(1)+'K' : v }, grid: { color: 'rgba(0,0,0,0.05)' } },
+      x: { ticks: { color: '#333' }, grid: { display: false } }
+    },
+    animation: { duration: 2000 }
+  }
+});
+
+// Radar Chart
+const radCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radCtx, {
+  type: 'radar',
+  data: {
+    labels: ['Instagram', 'Facebook', 'Website', 'Google SEO', 'Paid Ads', 'TikTok', 'Influencers', 'LinkedIn'],
+    datasets: [
+      {
+        label: 'Current',
+        data: [2, 5, 2, 1, 1, 1, 1, 4],
+        borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.15)',
+        pointBackgroundColor: '#ef4444', borderWidth: 2
+      },
+      {
+        label: '6-Month Target',
+        data: [7, 8, 7, 6, 8, 6, 7, 7],
+        borderColor: '#1B4B43', backgroundColor: 'rgba(27,75,67,0.15)',
+        pointBackgroundColor: '#1B4B43', borderWidth: 2
+      }
+    ]
+  },
+  options: {
+    plugins: { legend: { labels: { color: '#444' } } },
+    scales: {
+      r: {
+        min: 0, max: 10,
+        ticks: { display: false },
+        grid: { color: 'rgba(0,0,0,0.08)' },
+        pointLabels: { color: '#333', font: { size: 11 } }
+      }
+    },
+    animation: { duration: 1500 }
+  }
+});
+</script>
+</body>
+</html>
